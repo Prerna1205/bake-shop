@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, useContext } from "react";
+import Navigation from "./components/Navigation";
+import Protected from "./components/Protected";
+import Products from "./components/Products";
+import Cart from "./components/Cart";
+import useAuthentication from "./service/useAuthentication";
+import "./App.css";
+import Home from "./components/Home";
+import Login from "./components/Login";
 
-function App() {
+import { Switch, Route, BrowserRouter } from "react-router-dom";
+const App = () => {
+  const { AuthCtx } = useAuthentication();
+  const { user, logOut } = useContext(AuthCtx);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+        <Navigation count="0" />
+        <Switch>
+          <div className="content">
+            <Route exact path="/">
+              <Home />
+            </Route>
+
+            <Protected user={user} path="/shop">
+              <h1>Best Selling Desserts</h1>
+
+              <Products />
+            </Protected>
+
+            <Route path="/login">
+              <Login />
+            </Route>
+
+            <Route path="/cart">
+              <Cart />
+            </Route>
+          </div>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;

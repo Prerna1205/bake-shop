@@ -1,0 +1,89 @@
+.dishCartButton {
+  top: 80px;
+  width: 150px;
+  height: 40px;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 10px;
+  padding: 5px;
+}
+.dishCartButton:hover {
+  background-color: whitesmoke;
+}
+#dispayCartContent {
+  display: none;
+  overflow: hidden;
+}
+
+.cart {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: space-around;
+  background-color: peachpuff;
+  margin: 20px;
+  margin-top: 0px;
+  padding: 10px;
+}
+.cartImg {
+  display: flex;
+  flex-wrap: wrap;
+  width: 5%;
+  height: 5%;
+  border-radius: 2px;
+}
+.nav-link-cart {
+  position: absolute;
+  right: 30px;
+}
+
+.up {
+  position: relative;
+  font-size: 15px;
+  width: 18px;
+  top: -17px;
+}
+.up:hover {
+  background-color: white;
+}
+
+.down {
+  position: relative;
+  font-size: 15px;
+  width: 18px;
+  top: 8px;
+  left: -25px;
+}
+
+.up:hover {
+  background-color: white;
+}
+#mycartHeader {
+  cursor: pointer;
+}
+
+.collapsible {
+  background-color: peachpuff;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+.switch {
+  position: absolute;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  right: 0px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
