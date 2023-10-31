@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: BakeShop
+  description: An api library for bake shop
+
+servers:
+  - url: http://localhost:3000/api
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+security:
+  -BasicAuth: []
+
+paths:
+   /getProducts: 
+      get:
+        description: return a list of all bake products
+        content: 
+          application/json: 
+            schema:
+              type: array
+                items:
+                  type: object
+                    required:
+                      - p_id
+                    properties:
+                      p_id:
+                        type: string
+                      p_name:
+                        type: string
+                      p_price:
+                        type: number
+                      p_qty:
+                        type: number
+        '400': 
+          decription: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string

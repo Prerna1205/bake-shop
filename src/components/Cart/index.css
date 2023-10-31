@@ -20,7 +20,7 @@
   flex-wrap: wrap;
   text-align: center;
   justify-content: space-around;
-  background-color: peachpuff;
+ 
   margin: 20px;
   margin-top: 0px;
   padding: 10px;
@@ -52,9 +52,13 @@
   font-size: 15px;
   width: 18px;
   top: 8px;
-  left: -25px;
+  left: -38px;
 }
-
+.removeButton
+{
+  width: 30px;
+  height: 30px;
+}
 .up:hover {
   background-color: white;
 }
@@ -63,7 +67,7 @@
 }
 
 .collapsible {
-  background-color: peachpuff;
+  background-color: rgb(236, 80, 40);
   color: white;
   cursor: pointer;
   padding: 18px;
@@ -86,4 +90,15 @@
   opacity: 0;
   width: 0;
   height: 0;
+}
+
+.cartContainer
+{
+background-color: white;
+padding:10px;
+}
+.totalCart
+{
+margin-left: 50rem;
+
 }

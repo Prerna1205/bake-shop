@@ -1,17 +1,36 @@
 import React, { useState, useContext, useEffect, createRef } from "react";
 import useAuthentication from "../../service/useAuthentication";
 import { useHistory, useLocation } from "react-router-dom";
+import {login as loginAuth}  from "../../redux/authSlice";
+import { useDispatch,useSelector } from "react-redux";
 import "./index.css";
+//import { login } from "../../service";
 
 const Login = () => {
   const name = createRef();
   const pass = createRef();
-  const [userDetails, setUserDetails] = useState([
-    { id: "hello", pass: "hello" },
-  ]);
+  const dispatch=useDispatch();
+  const { loginData } = useSelector((state) => ({
+    loginData: state?.auth?.loginData,
+  }));
   const history = useHistory();
   const location = useLocation();
   const { AuthCtx } = useAuthentication();
+  // const doLogin = async (email, password) => {
+  
+  //   const response = await fetch("http://localhost:3000/api/login", {
+  //     mode: "cors",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //       'Access-Control-Allow-Origin':'*',
+  //     },
+  //     method: "post",
+  //     body: JSON.stringify({ email: email, password: password }),
+  //   });
+  //   const result = await response.json();
+  //   return result;
+  // };
   const { login, user, error } = useContext(AuthCtx);
   const { from } = (location && location.state) || {
     from: { pathname: "/" },
@@ -20,10 +39,13 @@ const Login = () => {
     user && history.replace(from);
   }, [user, from, history]);
 
-  const loginUser = () => {
+
+  const loginUser = async() => {
     const email = name.current.value;
     const password = pass.current.value;
-    login(email, password);
+    const response=await dispatch(loginAuth({email:email, password:password}));
+     login(response);
+    
   };
   return (
     <div className="Auth-form-container">
@@ -59,7 +81,7 @@ const Login = () => {
             </div>
             <div className="d-grid gap-2 mt-3">
               <button
-                type="submit"
+               type="button"
                 className="btn btn-primary"
                 onClick={loginUser}
               >
@@ -71,7 +93,7 @@ const Login = () => {
             </p>
           </div>
         </form>
-        {error ? "Ërror in login!" + error : null}
+        { error ? "Error in login!" + error : null }
       </div>
     </div>
   );

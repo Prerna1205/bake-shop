@@ -1,11 +1,14 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import cartIcon from "../../img/cart_icon.jpg";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import  DropDown  from "../Common/DropDown";
 
 const Navigation = (prop) => {
-  const { count } = prop;
+  const { totalItems } = useSelector((state) => state.cart);
+  
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav  className="navbar navbar-expand-lg navbar-light  nav">
       <span className="navbar-brand mb-0 h1" href="#">
         <img
           src="https://cdn2.vectorstock.com/i/1000x1000/68/71/baking-icons-and-elements-vector-526871.jpg"
@@ -14,7 +17,7 @@ const Navigation = (prop) => {
           className="d-inline-block align-top"
           alt=""
         />
-        My Baking Blog
+        The Bake Shop
       </span>
       <button
         className="navbar-toggler"
@@ -39,35 +42,29 @@ const Navigation = (prop) => {
               Shop Items
             </Link>
           </li>
-          <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Recipies
-            </a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="#">
-                Action
-              </a>
-              <a className="dropdown-item" href="#">
-                Another action
-              </a>
-              <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="#">
-                Something else here
-              </a>
-            </div>
+          <li className="nav-item">
+            <DropDown  className="nav-link" header="User" items={[{name:"Add Personal Information",link:"/addInfo"},{name:"Add Address",link:"/addAddress"}]}/>
+             
+            
           </li>
-          <li></li>
-
+          <li className="nav-item">
+            <DropDown  className="nav-link" header="Order" items={[{name:"Order Details",link:"/orderDetails"}]}/>
+             
+            
+          </li>
+          <li className="nav-item">
+          <Link className="nav-link" to="/login">
+              Login
+            </Link>
+          </li>
+          <li className="nav-item">
+          <Link className="nav-link" to="/signUp">
+             Sign Up
+            </Link>
+          </li>
           <li className="nav-link-cart">
             <Link to="/cart">
+           
               <img
                 src={cartIcon}
                 width="30"
@@ -76,14 +73,10 @@ const Navigation = (prop) => {
                 alt="cart-Icon"
               />
             </Link>
-            <span id="cartQty">0</span>
+            <span id="cartQty">{totalItems}</span>
           </li>
 
-          <li className="nav-link">
-            <Link className="nav-link" to="/login">
-              Login
-            </Link>
-          </li>
+          
         </ul>
       </div>
     </nav>

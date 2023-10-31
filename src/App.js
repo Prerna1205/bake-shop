@@ -7,8 +7,10 @@ import useAuthentication from "./service/useAuthentication";
 import "./App.css";
 import Home from "./components/Home";
 import Login from "./components/Login";
-
+import SignUp from "./components/SignUp";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
+import Account from "./components/User/Accounts";
+import AddAddress from "./components/User/AddAddress";
 const App = () => {
   const { AuthCtx } = useAuthentication();
   const { user, logOut } = useContext(AuthCtx);
@@ -24,15 +26,21 @@ const App = () => {
             </Route>
 
             <Protected user={user} path="/shop">
-              <h1>Best Selling Desserts</h1>
-
               <Products />
             </Protected>
 
             <Route path="/login">
               <Login />
             </Route>
-
+            <Route path="/addInfo">
+              <Account />
+            </Route>
+            <Route path="/addAddress">
+              <AddAddress />
+            </Route>
+            <Route path="/signUp">
+              <SignUp />
+            </Route>
             <Route path="/cart">
               <Cart />
             </Route>

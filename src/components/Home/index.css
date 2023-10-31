@@ -1,0 +1,27 @@
+.container1 {
+    position: relative;
+    width: 100%;
+    width: 100vw;
+    background-color: rgb(33, 28, 28);
+  }
+  .subtext {
+    display: flex;
+    position: relative;
+  }
+  .maintext {
+    margin: 10px;
+    position: relative;
+    display: flex;
+    font-size: 20px;
+    padding: 12px;
+    font-weight: 500;
+    color:white;
+  }
+  
+  @media all and (max-width: 600px) {
+    .subtext {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+  

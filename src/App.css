@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -38,8 +39,47 @@
 }
 
 
+
+
 #allDishes {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+ 
+}
+
+.nav-button
+{
+
+  margin:10px;
+  text-decoration: none;
+}
+.filterBar
+{
+  width: 100%;
+  display:flex;
+  flex-wrap: wrap;
+  background-color:  rgb(237, 74, 38);
+  flex-direction: row;
+  padding: 10px;
+  margin: 10px;
+ 
+}
+
+.rating {
+  
+ display: flex;
+ position: relative;
+ 
+ padding: 10px;
+ 
+}
+
+.star {
+  position: relative;
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  background-image: url("./img/star.png");
+  background-size: cover;
+  display: inline-block;
 }

@@ -1,19 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+//import {catalogApi} from "./redux/apiSlice";
 import useAuthentication from "./service/useAuthentication";
-import reportWebVitals from "./reportWebVitals";
 import "./css/style.css";
-import { store } from "./redux/store";
+import  storeNew  from "./redux/store";
 import { Provider } from "react-redux";
+//import {ApiProvider} from "@reduxjs/toolkit/query/react";
 function ConnectedApp() {
   const { AuthProvider } = useAuthentication();
   return (
-    <Provider store={store}>
+    
+    <Provider store={storeNew}>
       <AuthProvider>
         <App />
       </AuthProvider>
     </Provider>
+
   );
 }
 
