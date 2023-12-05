@@ -13,14 +13,14 @@
 .heading {
   color:white;
   justify-self: center;
-  font-size: 4.5em;
-  font-weight: bold;
+  font-size: 3.5em;
+  font-weight: 500;
   position: relative;
   animation: appear 1s ease-in-out 0s forwards;
   text-shadow: 2px 2px 2px black;
 }
 .banner .heading small {
-  font-size: 35px;
+  font-size: medium;
   font-weight: bold;
 }
 @keyframes appear {
@@ -44,4 +44,12 @@
   color: white;
   background-color: rgb(42, 42, 78);
   text-shadow: 2px 2px 2px black;
+}
+@media all and (max-width: 600px) {
+  .subtext {
+    flex-direction: column;
+    justify-content: center;
+    font-size: medium;
+  }
+
 }

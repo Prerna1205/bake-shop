@@ -28,7 +28,7 @@ const Navigation = (prop) => {
         aria-expanded="false"
         aria-label="Toggle navigation"
       ></button>
-      <span className="navbar-toggler-icon"></span>
+     
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">

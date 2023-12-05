@@ -1,0 +1,31 @@
+.sideBarColumn {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  padding-left: 0.25rem; /* Assuming 'px-1' adds left padding of 0.25rem */
+  padding-right: 0.25rem;
+}
+
+.hidden-sm {
+  display: none; /* Assuming 'hidden sm' means hiding on small screens */
+}
+
+.navTiles {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 2px 2px 2px;
+  border-radius: 5px;
+}
+
+.navTiles > .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding-left: 1rem; /* Assuming 'px-4' adds left padding of 1rem */
+  padding-right: 1rem;
+  padding-top: 0.5rem; /* Assuming 'py-2' adds top padding of 0.5rem */
+  padding-bottom: 0.5rem; 
+  border-bottom: 1px solid #000;
+}

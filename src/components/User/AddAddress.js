@@ -1,15 +1,19 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { address } from "../../redux/userSlice";
 import "./AccountsIndex.css";
 const AddressForm = () => {
+  const dataSession = sessionStorage.getItem("user");
   const [addresses, setAddresses] = useState([
     {
       street: "",
       city: "",
       state: "",
-      zip: "",
+      zip: ""
+     
     },
   ]);
-
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState([
     { street: "", city: "", state: "", zip: "" },
   ]);
@@ -86,6 +90,10 @@ const AddressForm = () => {
     setAddresses(newAddresses);
   };
 
+  const sendAddress = () => {
+    dispatch(address({ user: dataSession ? JSON.parse(dataSession) : null,address:addresses}));
+  };
+
   return (
     <div className="form-container">
       <h2>Address Details</h2>
@@ -143,11 +151,13 @@ const AddressForm = () => {
             </div>
           </div>
         ))}
-         <div className="form-group">
-        <button type="button" onClick={addAddress}>
-          Add Address
-        </button>
-        <button type="submit">Submit</button>
+        <div className="form-group">
+          <button type="button" onClick={addAddress}>
+            Add Address
+          </button>
+          <button type="submit" onClick={() => sendAddress()}>
+            Submit
+          </button>
         </div>
       </form>
     </div>

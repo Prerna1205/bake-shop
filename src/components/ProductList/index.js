@@ -15,36 +15,36 @@ const ProductList = () => {
   function onAddToCart(productObj) {
     dispatch(additem({ ...productObj, quantity: 1 }));
   }
-  
+
   useEffect(() => {
     if (!isLoading) {
-     console.log(category);
       dispatch(addtoList(products["data"]));
       if (category) {
         setFilter(category);
-        const productsfetched=products["data"];
-       const newarray= productsfetched.filter((obj) => {
+        const productsfetched = products["data"];
+        const newarray = productsfetched.filter((obj) => {
           return obj.category == category;
         });
         setState(newarray);
-      }else{
+      } else {
         setState(products["data"]);
       }
     }
-  }, [category,isLoading,products]);
- 
+  }, [category, isLoading, products]);
+
   return (
     <div id="allDishes">
       {!productId && state.length > 0 && !isLoading ? (
         state.map((productObj) => (
-          <div>
+          <div id="productDiv">
             <Link to={`${category}/${productObj._id}`} key={productObj._id}>
               <Product key={productObj._id} product={productObj} />
             </Link>
-            <button onClick={() => onAddToCart(productObj)}>
-              {" "}
-              Add to cart
-            </button>
+            <div class="btnBlock">
+              <button onClick={() => onAddToCart(productObj)}>
+                Add to cart
+              </button>
+            </div>
           </div>
         ))
       ) : productId ? (

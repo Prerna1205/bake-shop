@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 import { myOrders, clearErrors } from '../../actions/orderAction';
 import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../Layouts/Loader';
-import { useSnackbar } from 'notistack';
+import Loader from '../Common/Loader';
 import OrderItem from './OrderItem';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import SearchIcon from '@mui/icons-material/Search';
-import MinCategory from '../Layouts/MinCategory';
-import MetaData from '../Layouts/MetaData';
+import MinCategory from '../Common/MinCategory';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import MetaData from '../Common/MetaData';
+import { useSnackbar } from 'notistack';
 
+import './index.css';
 const orderStatus = ["Processing", "Shipped", "Delivered"];
 const dt = new Date();
 const ordertime = [dt.getMonth(), dt.getFullYear() - 1, dt.getFullYear() - 2];
@@ -19,22 +22,20 @@ const ordertime = [dt.getMonth(), dt.getFullYear() - 1, dt.getFullYear() - 2];
 const MyOrders = () => {
 
     const dispatch = useDispatch();
-    const { enqueueSnackbar } = useSnackbar();
-
     const [status, setStatus] = useState("");
     const [orderTime, setOrderTime] = useState(0);
     const [search, setSearch] = useState("");
     const [filteredOrders, setFilteredOrders] = useState([]);
-
+    const { enqueueSnackbar } = useSnackbar();
     const { orders, loading, error } = useSelector((state) => state.myOrders);
 
-    useEffect(() => {
+     useEffect(() => {
         if (error) {
             enqueueSnackbar(error, { variant: "error" });
             dispatch(clearErrors());
         }
         dispatch(myOrders());
-    }, [dispatch, error, enqueueSnackbar]);
+     }, [dispatch, error]);
 
     useEffect(() => {
         if (loading === false) {
@@ -87,10 +88,7 @@ const MyOrders = () => {
 
     const searchOrders = (e) => {
         e.preventDefault();
-        if (!search.trim()) {
-            enqueueSnackbar("Empty Input", { variant: "warning" });
-            return;
-        }
+       
         const arr = orders.map((el) => ({
             ...el,
             orderItems: el.orderItems.filter((order) =>
@@ -106,22 +104,22 @@ const MyOrders = () => {
 
     return (
         <>
-            <MetaData title="My Orders | Flipkart" />
+            <MetaData title="My Orders | BakeShop" />
 
-            <MinCategory />
+           
             <main className="w-full mt-16 sm:mt-0">
 
                 {/* <!-- row --> */}
-                <div className="flex gap-3.5 mt-2 sm:mt-6 sm:mx-3 m-auto mb-7">
+                <Row className="flex gap-3.5 mt-2 sm:mt-6 sm:mx-3 m-auto mb-7">
 
                     {/* <!-- sidebar column  --> */}
-                    <div className="hidden sm:flex flex-col w-1/5 px-1">
+                    <Col sm={3} className="sideBarColumn">
 
                         {/* <!-- nav tiles --> */}
-                        <div className="flex flex-col bg-white rounded-sm shadow">
+                        <div className="navTiles">
 
                             {/* <!-- filters header --> */}
-                            <div className="flex items-center justify-between gap-5 px-4 py-2 border-b">
+                            <div className="header">
                                 <p className="text-lg font-medium">Filters</p>
                                 <span onClick={clearFilters} className="text-blue-600 font-medium text-sm uppercase cursor-pointer hover:text-blue-700">clear all</span>
                             </div>
@@ -177,14 +175,14 @@ const MyOrders = () => {
                         </div>
                         {/* <!-- nav tiles --> */}
 
-                    </div>
+                    </Col>
                     {/* <!-- sidebar column  --> */}
 
                     {/* <!-- orders column --> */}
-                    <div className="flex-1">
+                    <Col sm={8} className="flex-1">
 
                         {loading ? <Loader /> : (
-                            <div className="flex flex-col gap-3 sm:mr-4 overflow-hidden">
+                            <div>
 
                                 {/* <!-- searchbar --> */}
                                 <form onSubmit={searchOrders} className="flex items-center justify-between mx-1 sm:mx-0 sm:w-10/12 bg-white border rounded hover:shadow">
@@ -217,9 +215,9 @@ const MyOrders = () => {
                             </div>
                         )}
 
-                    </div>
+                    </Col>
                     {/* <!-- orders column --> */}
-                </div>
+                </Row>
                 {/* <!-- row --> */}
 
             </main>

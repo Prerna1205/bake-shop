@@ -20,7 +20,6 @@
   flex-wrap: wrap;
   text-align: center;
   justify-content: space-around;
- 
   margin: 20px;
   margin-top: 0px;
   padding: 10px;
@@ -54,6 +53,7 @@
   top: 8px;
   left: -38px;
 }
+
 .removeButton
 {
   width: 30px;
@@ -96,6 +96,8 @@
 {
 background-color: white;
 padding:10px;
+
+
 }
 .totalCart
 {

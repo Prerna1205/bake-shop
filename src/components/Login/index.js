@@ -15,23 +15,8 @@ const Login = () => {
   }));
   const history = useHistory();
   const location = useLocation();
-  const { AuthCtx } = useAuthentication();
-  // const doLogin = async (email, password) => {
-  
-  //   const response = await fetch("http://localhost:3000/api/login", {
-  //     mode: "cors",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //       'Access-Control-Allow-Origin':'*',
-  //     },
-  //     method: "post",
-  //     body: JSON.stringify({ email: email, password: password }),
-  //   });
-  //   const result = await response.json();
-  //   return result;
-  // };
-  const { login, user, error } = useContext(AuthCtx);
+  const { user, error, } = useSelector((state) => state.auth);
+
   const { from } = (location && location.state) || {
     from: { pathname: "/" },
   };
@@ -44,7 +29,7 @@ const Login = () => {
     const email = name.current.value;
     const password = pass.current.value;
     const response=await dispatch(loginAuth({email:email, password:password}));
-     login(response);
+    
     
   };
   return (

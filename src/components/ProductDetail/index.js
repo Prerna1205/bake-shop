@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Typography, Divider, Col, Row, Card, Image, Button } from "antd";
+import { Layout, Typography,  Col, Row, Card,  Button } from "antd";
 import Rating from "./Rating";
-import { getRecipe } from "../../api";
-
 import { useGetProductQuery } from "../../redux/apiSlice";
 const { Title } = Typography;
 

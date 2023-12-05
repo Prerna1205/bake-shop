@@ -1,52 +1,68 @@
-
 import "./index.css";
-import { deleteitem,updateItem } from "../../redux/cartSlice";
-import { useDispatch } from "react-redux";
+ import "../../index.css";
+import PriceSidebar from "./PriceSidebar";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import MetaData from "../Common/MetaData";
+import CartItem from "./CartItem";
 const Cart = () => {
-  const { items,totalItems,totalCost } = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
-
-  const removeFromCart = (product) => {
-    dispatch(deleteitem(product));
+  const { items, totalItems, totalCost } = useSelector((state) => state.cart);
+  const placeOrderHandler = () => {
+    history.push("/shipping");
   };
-  const updateCart = (product,action) => {
-    dispatch(updateItem({...product,actionPerformed:action}));
-  };
+  const history = useHistory();
   return (
-    <div className="cartContainer" >
-      {items.length > 0
-        ? items.map((dish) => (
-            <div className="cart">
-              <img className="cartImg" src={dish.img} alt="" />
-              <h3 className="cartname"> {dish.name}</h3>
-              <h3 className="cartPrice"> Rs. {dish.price}</h3>
-              <h3 className="cartQty">
-                {dish.quantity}{" "}
-                <button className="up" onClick={() => updateCart(dish,"add")}>
-                  ↑
+    <>
+      <MetaData title="Shopping Cart | BakeShop" />
+
+      <main className="w-full mt-20">
+        {/* <!-- row --> */}
+        <div className="flex flex-col sm:flex-row gap-3.5 w-full sm:w-11/12 mt-0 sm:mt-4 m-auto sm:mb-7">
+          {/* <!-- cart column --> */}
+          <div className="flex-1">
+            {/* <!-- cart items container --> */}
+            <div className="flex flex-col shadow bg-white">
+              <span className="font-medium text-lg px-2 sm:px-8 py-4 border-b">
+                My Cart ({items.length})
+              </span>
+
+              {/* {items && items.length === 0 && (
+                                <EmptyCart />
+                            )} */}
+
+              {items && items.map((item) => <CartItem dish={item} />)}
+
+              {/* <!-- place order btn --> */}
+              <div className="flex justify-end">
+                <button
+                  onClick={placeOrderHandler}
+                  disabled={items.length < 1 ? true : false}
+                 
+                >
+                  PLACE ORDER
                 </button>
-                <button className="down" onClick={() => updateCart(dish,"remove")}>
-                  ↓
-                </button>
-              </h3>
-              <button
-                className="removeButton"
-                onClick={() => removeFromCart(dish)}
-              >
-                X
-              </button>
+              </div>
+              {/* <!-- place order btn --> */}
             </div>
-          ))
-        : "Cart is Empty"}
-        <hr></hr>
-        <div className="totalCart">
-        <h3 className="cartname"> Total Quantity:{totalItems}</h3>
-         <h3 className="cartPrice">Total Price:Rs. {totalCost}</h3>
-         <button>Proceed For Payment</button>
-         </div>
-        
-    </div >
+            {/* <!-- cart items container --> */}
+
+            {/* <!-- saved for later items container --> */}
+            {/* <div className="flex flex-col mt-5 shadow bg-white">
+                            <span className="font-medium text-lg px-2 sm:px-8 py-4 border-b">Saved For Later ({saveForLaterItems.length})</span>
+                            {saveForLaterItems && saveForLaterItems.map((item) => (
+                                <SaveForLaterItem {...item} />
+                            )
+                            )}
+                        </div> */}
+            {/* <!-- saved for later container --> */}
+          </div>
+          {/* <!-- cart column --> */}
+
+          <PriceSidebar cartItems={items} />
+        </div>
+        {/* <!-- row --> */}
+      </main>
+    </>
   );
 };
 export default Cart;
