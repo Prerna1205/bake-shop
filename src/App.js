@@ -4,7 +4,6 @@ import Navigation from "./components/Navigation";
 import Protected from "./components/Protected";
 import Products from "./components/Products";
 import Cart from "./components/Cart";
-import useAuthentication from "./service/useAuthentication";
 import "./index.css";
 import "./App.css";
 import Home from "./components/Home";
@@ -38,10 +37,13 @@ const App = () => {
             <Protected user={user} path="/shop">
               <Products />
             </Protected>
-            <Route
-              path="/orders/success"
-              element={<OrderSuccess success={true} />}
-            />
+            <Protected user={user} exact path="/orders/payment/success">
+              <OrderSuccess success={true} />
+            </Protected>
+            <Protected user={user} exact path="/orders/:id">
+              <OrderStatus />
+            </Protected>
+
             <Route
               path="/orders/failed"
               element={<OrderSuccess success={false} />}
@@ -68,9 +70,6 @@ const App = () => {
             <Protected user={user} path="/shipping">
               <Shipping />
             </Protected>
-            <Protected user={user} path="/orders/:id">
-              <OrderStatus />
-            </Protected>
 
             <Protected user={user} path="/order/confirm">
               <OrderConfirm />
@@ -79,7 +78,7 @@ const App = () => {
               <Payment />
             </Protected>
 
-            <Protected user={user} path="/orders">
+            <Protected user={user} exact path="/orders">
               <MyOrders />
             </Protected>
 

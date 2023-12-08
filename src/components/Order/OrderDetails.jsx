@@ -15,13 +15,13 @@ const OrderDetails = () => {
   const params = useParams();
 
   const { order, error, loading } = useSelector((state) => state.orderDetails);
-
+const {token}= useSelector((state) => state.auth);
   useEffect(() => {
     if (error) {
       enqueueSnackbar(error, { variant: "error" });
       dispatch(clearErrors());
     }
-    dispatch(getOrderDetails(params.id));
+    dispatch(getOrderDetails(params.id,token));
   }, [dispatch, error, params.id, enqueueSnackbar]);
 
   return (

@@ -52,12 +52,12 @@ const Navigation = (prop) => {
              
             
           </li>
-          <li className="nav-item">
+          <li className="nav-item end">
           <Link className="nav-link" to="/login">
               Login
             </Link>
           </li>
-          <li className="nav-item">
+          <li className="nav-item end">
           <Link className="nav-link" to="/signUp">
              Sign Up
             </Link>

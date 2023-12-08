@@ -7,31 +7,37 @@ const Products = () => {
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto filterBar">
+          <ul className="navbar-nav mr-auto filterBar flex justify-between">
+          <li className="nav-item active">
+              <Link className="nav-button text-white" to={`${url}`}>
+              <button>All</button> <span className="sr-only"></span>
+              </Link>
+            </li>
             <li className="nav-item active">
-              <Link className="nav-button" to={`${url}/breads`}>
+              <Link className="nav-button text-white" to={`${url}/breads`}>
               <button>Breads</button> <span className="sr-only"></span>
               </Link>
             </li>
+           
             <li className="nav-item">
               
-              <Link className="nav-button" to={`${url}/cakes`}>
+              <Link className="nav-button text-white" to={`${url}/cakes`}>
                <button>Cakes</button> 
               </Link>
             </li>
             <li className="nav-item">
               
-              <Link className="nav-button" to={`${url}/snacks`}>
+              <Link className="nav-button text-white" to={`${url}/snacks`}>
               <button>Snacks</button> 
               </Link>
             </li>
             <li className="nav-item">
               
-              <Link className="nav-button" to={`${url}/brulle`}>
+              <Link className="nav-button text-white" to={`${url}/brulle`}>
               <button>Brulle</button> 
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item text-white">
               
               <Link className="nav-button" to={`${url}/tarts`}>
               <button>Tarts</button> 

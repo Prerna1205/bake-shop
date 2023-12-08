@@ -69,12 +69,25 @@ const cartSlice = createSlice({
       });
     },
     SAVE_SHIPPING_INFO: (state, action) => {
-      state = { ...state, shippingInfo: action.payload };
+      state.shippingInfo=  action.payload ;
       localStorage.setItem("shippingInfo", JSON.stringify(action.payload));
+    },
+    emptyCart: (state, action) => {
+      
+      localStorage.setItem("cartItems", []);
+     state.items= [] ;
+     state.totalItems=0;
+
+     
     },
   },
 });
 
-export const { additem, deleteitem, updateItem, SAVE_SHIPPING_INFO } =
-  cartSlice.actions;
+export const {
+  additem,
+  deleteitem,
+  updateItem,
+  SAVE_SHIPPING_INFO,
+  emptyCart,
+} = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;

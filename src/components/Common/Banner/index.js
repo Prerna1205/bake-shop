@@ -8,7 +8,7 @@ const Banner = () => {
         <b>The Bake Shop</b>
         <br></br>
         <small>We bake happiness.</small>
-        <div className="orderButtonDiv">
+        <div className="orderDiv">
         <button className="orderBtn" onClick={()=>{history.push("/shop")}}>Order Now! </button>
         </div>
       </div>

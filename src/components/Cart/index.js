@@ -1,12 +1,12 @@
 import "./index.css";
- import "../../index.css";
+import "../../index.css";
 import PriceSidebar from "./PriceSidebar";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import MetaData from "../Common/MetaData";
 import CartItem from "./CartItem";
 const Cart = () => {
-  const { items, totalItems, totalCost } = useSelector((state) => state.cart);
+  const { items } = useSelector((state) => state.cart);
   const placeOrderHandler = () => {
     history.push("/shipping");
   };
@@ -15,7 +15,7 @@ const Cart = () => {
     <>
       <MetaData title="Shopping Cart | BakeShop" />
 
-      <main className="w-full mt-20">
+      <main className="w-full mt-10">
         {/* <!-- row --> */}
         <div className="flex flex-col sm:flex-row gap-3.5 w-full sm:w-11/12 mt-0 sm:mt-4 m-auto sm:mb-7">
           {/* <!-- cart column --> */}
@@ -33,11 +33,15 @@ const Cart = () => {
               {items && items.map((item) => <CartItem dish={item} />)}
 
               {/* <!-- place order btn --> */}
-              <div className="flex justify-end">
+              <div className="flex justify-end ">
                 <button
                   onClick={placeOrderHandler}
                   disabled={items.length < 1 ? true : false}
-                 
+                  className={`${
+                    items.length < 1
+                      ? "bg-primary-grey cursor-not-allowed"
+                      : "bg-primary-orange"
+                  } w-full sm:w-1/3 mx-2 sm:mx-6 my-4 py-3 font-medium text-white shadow hover:shadow-lg rounded-sm`}
                 >
                   PLACE ORDER
                 </button>
@@ -58,7 +62,7 @@ const Cart = () => {
           </div>
           {/* <!-- cart column --> */}
 
-          <PriceSidebar cartItems={items} />
+          {items.length > 0 ? <PriceSidebar cartItems={items} /> : ""}
         </div>
         {/* <!-- row --> */}
       </main>

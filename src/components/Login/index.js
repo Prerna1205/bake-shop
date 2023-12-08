@@ -15,12 +15,13 @@ const Login = () => {
   }));
   const history = useHistory();
   const location = useLocation();
-  const { user, error, } = useSelector((state) => state.auth);
+  const { user, error } = useSelector((state) => state.auth);
 
   const { from } = (location && location.state) || {
     from: { pathname: "/" },
   };
   useEffect(() => {
+    console.log(user);
     user && history.replace(from);
   }, [user, from, history]);
 

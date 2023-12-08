@@ -12,8 +12,6 @@ import { SAVE_SHIPPING_INFO } from "../../redux/cartSlice";
 import { useHistory } from "react-router-dom";
 import MetaData from "../Common/MetaData";
 import states from "../../utils/states";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 const Shipping = () => {
   const dispatch = useDispatch();
   const navigate = useHistory();
@@ -42,9 +40,12 @@ const Shipping = () => {
   return (
     <>
       <MetaData title="Bake shop: Shipping Details" />
+      
       {/* <!-- row --> */}
+      <main className="w-full mt-20">
       <div className="flex flex-col sm:flex-row gap-3.5 w-full sm:w-11/12 mt-0 sm:mt-4 m-auto sm:mb-7 overflow-hidden">
-        {/* <!-- cart column --> */}
+
+  {/* <!-- cart column --> */}
         <div className="flex-1">
           <Stepper activeStep={1}>
             <div className="w-full bg-white">
@@ -145,7 +146,8 @@ const Shipping = () => {
 
           <PriceSidebar cartItems={items} />
         </div>
-      </div>
+        </div>
+      </main>
     </>
   );
 };

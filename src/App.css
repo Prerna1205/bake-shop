@@ -57,6 +57,12 @@
   padding: 10px;
   margin: 10px;
 }
+.end
+{
+    display: flex;
+justify-content: flex-end;
+}
+
 
 .priceSidebar {
   position: relative;

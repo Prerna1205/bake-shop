@@ -30,9 +30,9 @@ const Payment = () => {
   // const paymentBtn = useRef(null);
 
   const [payDisable, setPayDisable] = useState(false);
-
+ 
   const { shippingInfo, items } = useSelector((state) => state.cart);
-  const { user, error } = useSelector((state) => state.auth);
+  const { user, error,token } = useSelector((state) => state.auth);
   // const { error } = useSelector((state) => state.newOrder);
 
   const totalPrice = items.reduce(
@@ -75,6 +75,7 @@ const Payment = () => {
         //         dispatch(emptyCart());
   
                // navigate.push("/orders/success");
+               
          navigate.push(`/orders/${data.orderId}`);
       }
 
@@ -135,7 +136,8 @@ const Payment = () => {
       dispatch(clearErrors());
       enqueueSnackbar(error, { variant: "error" });
     }
-  }, [dispatch, error, enqueueSnackbar]);
+    
+  }, [dispatch, error, enqueueSnackbar,]);
 
   return (
     <>
@@ -177,16 +179,8 @@ const Payment = () => {
                     </RadioGroup>
                   </FormControl>
 
-                  <input
-                    type="submit"
-                    value={`Pay ₹${totalPrice.toLocaleString()}`}
-                    disabled={payDisable ? true : false}
-                    className={`${
-                      payDisable
-                        ? "bg-primary-grey cursor-not-allowed"
-                        : "bg-primary-orange cursor-pointer"
-                    } primary-button`}
-                  />
+                  <input type="submit" value={`Pay ₹${totalPrice.toLocaleString()}`} disabled={payDisable ? true : false} className={`${payDisable ? "bg-primary-grey cursor-not-allowed" : "bg-primary-orange cursor-pointer"} w-1/2 sm:w-1/4 my-2 py-3 font-medium text-white shadow hover:shadow-lg rounded-sm uppercase outline-none`} />
+
                 </form>
 
                 {/* stripe form */}

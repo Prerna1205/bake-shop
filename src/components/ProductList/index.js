@@ -37,12 +37,14 @@ const ProductList = () => {
       {!productId && state.length > 0 && !isLoading ? (
         state.map((productObj) => (
           <div id="productDiv">
-            <Link to={`${category}/${productObj._id}`} key={productObj._id}>
+            {category?(<Link to={`${category}/${productObj._id}`} key={productObj._id}>
               <Product key={productObj._id} product={productObj} />
-            </Link>
-            <div class="btnBlock">
-              <button onClick={() => onAddToCart(productObj)}>
-                Add to cart
+            </Link>):(<Link to={`shop/all/${productObj._id}`} key={productObj._id}>
+              <Product key={productObj._id} product={productObj} />
+            </Link>)}
+            <div w-full >
+              <button className="bg-primary w-full sm:w-1/2  mx-4 sm:mx-6 my-1 py-1 px-1 font-medium text-white shadow hover:shadow-lg rounded-sm" onClick={() => onAddToCart(productObj)}>
+                Add to Cart
               </button>
             </div>
           </div>

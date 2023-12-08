@@ -28,14 +28,14 @@ const MyOrders = () => {
     const [filteredOrders, setFilteredOrders] = useState([]);
     const { enqueueSnackbar } = useSnackbar();
     const { orders, loading, error } = useSelector((state) => state.myOrders);
-
+const{token}=useSelector((state) => state.auth);
      useEffect(() => {
         if (error) {
             enqueueSnackbar(error, { variant: "error" });
             dispatch(clearErrors());
         }
-        dispatch(myOrders());
-     }, [dispatch, error]);
+        dispatch(myOrders(token))
+     }, []);
 
     useEffect(() => {
         if (loading === false) {
