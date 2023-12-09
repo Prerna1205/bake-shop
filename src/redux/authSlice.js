@@ -1,4 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import env from 'react-dotenv';
+const apiBaseUrl=env.REACT_APP_API_URL;
+
 const initialState = {
   loading: false,
   user: sessionStorage.getItem("user")
@@ -13,7 +16,7 @@ export const login = createAsyncThunk(
   "login",
 
   async (data, thunkAPI) => {
-    const response = await fetch("http://localhost:3000/api/login", {
+    const response = await fetch(`${apiBaseUrl}/api/login`, {
       mode: "cors",
       headers: {
         Accept: "application/json",
@@ -35,32 +38,9 @@ export const login = createAsyncThunk(
     }
   }
 );
-export const logout = createAsyncThunk(
-  "logout",
-
-  async (data, thunkAPI) => {
-    const response = await fetch("http://localhost:3000/api/logout", {
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      method: "get",
-    
-    });
-    try {
-      if (response.status === 200) {
-        const response1 = await response.json();
-
-        return response1;
-      }
-      return thunkAPI.rejectWithValue("Error in Login");
-    } catch (error) {
-      return thunkAPI.rejectWithValue("API Error!");
-    }
-  }
-);
+export const logout = () => (dispatch) => {
+  dispatch({ type: "LOGOUT" });
+}
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -87,7 +67,23 @@ const authSlice = createSlice({
         state.error = action?.payload;
         sessionStorage.setItem("user", {});
         sessionStorage.setItem("token", null);
-      });
+      })
+      // .addCase(logout.pending, (state) => {
+      //   state.loading = true;
+      //   state.error = null;
+      // })
+      .addCase('LOGOUT', (state, action) => {
+        state.loading = false;
+        state.user = null;
+        state.error = null;
+        state.token=null;
+        sessionStorage.clear();
+      })
+      // .addCase(logout.rejected, (state, action) => {
+      //   state.loading = false;
+      //   state.error = action?.payload;
+       
+      // });
   },
 });
 export default authSlice.reducer;

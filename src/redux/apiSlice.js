@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-const apiBaseUrl = 'http://localhost:3000';
-
+import env from 'react-dotenv';
+const apiBaseUrl=env.REACT_APP_API_URL;
 export const catalogApi = createApi({
   reducerPath: 'catalogApi',
   baseQuery: fetchBaseQuery({
