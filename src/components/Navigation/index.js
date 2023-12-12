@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import cartIcon from "../../img/cart_icon.jpg";
 import Navbar from "react-bootstrap/Navbar";
-
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import DropDown from "../Common/DropDown";
@@ -63,6 +63,12 @@ const Navigation = (prop) => {
                   items={[{ name: "Order Details", link: "/orderDetails" }]}
                 />
               </li>
+              {user.role  &&
+                <Link  className="nav-link" to="/admin/dashboard">
+                    <span className="text-primary-blue"><DashboardIcon sx={{ fontSize: "18px" }} /></span>
+                    Admin Dashboard
+                </Link>
+            }
               <ul className="navbar-right">
                 <Navbar.Text>Hi, {user.name}</Navbar.Text>
                 <Link

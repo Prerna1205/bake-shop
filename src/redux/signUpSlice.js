@@ -1,15 +1,13 @@
 import {createAsyncThunk,createSlice} from '@reduxjs/toolkit';
-import env from 'react-dotenv';
-const apiBaseUrl=env.REACT_APP_API_URL;
 const initialState = {
     loading: false,
-    addressData: '',
+    signUpData: '',
     error: null,
   };
-  export const address = createAsyncThunk(
-    'address',
+  export const signUp = createAsyncThunk(
+    'signUp',
     async (data,thunkAPI) => {
-        const response = await fetch(`${apiBaseUrl}/api/addAddress`, {
+        const response = await fetch("http://localhost:3000/api/signup", {
             mode: "cors",
             headers: {
               Accept: "application/json",
@@ -23,40 +21,40 @@ const initialState = {
           if(response.status === 200){
           
             const response1=await response.json();
-            console.log(response1);
+           
             return response1;
 
             }
-            return thunkAPI.rejectWithValue("Error in adding address.");
+            return thunkAPI.rejectWithValue("Error in signup!");
         }
           catch(error)
           {
-            return thunkAPI.rejectWithValue('API Error!');
+            return thunkAPI.rejectWithValue('No Resonse from API!');
           }
       
     },
   );
 
-  const userSlice = createSlice({
-    name: 'userDetails',
+  const authSlice = createSlice({
+    name: 'signUp',
     initialState,
     extraReducers: (builder) => {
       builder
-        .addCase(address.pending, (state) => {
+        .addCase(signUp.pending, (state) => {
           state.loading = true;
-          state.addressData = '';
+          state.signUpData = '';
           state.error = null;
         })
-        .addCase(address.fulfilled, (state, action) => {
+        .addCase(signUp.fulfilled, (state, action) => {
           state.loading = false;
-          state.addressData = action?.payload;
+          state.signUpData = action?.payload;
           state.error = null;
         })
-        .addCase(address.rejected, (state, action) => {
+        .addCase(signUp.rejected, (state, action) => {
           state.loading = false;
-          state.addressData = '';
+          state.signUpData = '';
           state.error = action?.payload;
         });
     },
   });
-  export default userSlice.reducer;
+  export default authSlice.reducer;

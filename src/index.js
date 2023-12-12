@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-//import {catalogApi} from "./redux/apiSlice";
 import useAuthentication from "./service/useAuthentication";
 import "./css/style.css";
 import  storeNew  from "./redux/store";
 import { Provider } from "react-redux";
 import { SnackbarProvider } from "notistack";
-//import {ApiProvider} from "@reduxjs/toolkit/query/react";
+import ErrorBoundary from "./components/ErrorBoundary";
 function ConnectedApp() {
   const { AuthProvider } = useAuthentication();
   return (
@@ -21,7 +20,9 @@ function ConnectedApp() {
         }}
       ></SnackbarProvider>
       <AuthProvider>
+      <ErrorBoundary>
         <App />
+        </ErrorBoundary>
       </AuthProvider>
       <SnackbarProvider/>
     </Provider>

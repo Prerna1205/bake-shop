@@ -118,11 +118,16 @@ export const getPaymentStatus = (id,user,token) => async (dispatch) => {
 };
 
 // Get All Orders ---ADMIN
-export const getAllOrders = () => async (dispatch) => {
+export const getAllOrders = (token) => async (dispatch) => {
     try {
         dispatch({ type: ALL_ORDERS_REQUEST });
-
-        const { data } = await axios.get(`${apiBaseUrl}/api/admin/orders`);
+        const config = {
+            headers: {
+               
+                Authorization: `Bearer ${token}`
+            },
+        };
+        const { data } = await axios.get(`${apiBaseUrl}/api/admin/orders`,config);
 
         dispatch({
             type: ALL_ORDERS_SUCCESS,

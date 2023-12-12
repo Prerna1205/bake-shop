@@ -1,0 +1,12 @@
+.fallback_error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ text-align: center;
+  min-width: 90vw;
+  min-height: 90vh;
+ 
+}
+.fallback_error .err_msg {
+  font-size: large;
+}

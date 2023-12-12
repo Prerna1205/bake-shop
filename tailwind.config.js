@@ -4,6 +4,8 @@ module.exports = {
   content: [
     "./src/components/Cart/*.{js,jsx,ts,tsx}",
     "./src/components/Order/*.{js,jsx,ts,tsx}",
+    "./src/components/Footer/*.{js,jsx,ts,tsx}",
+    "./src/components/Admin/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     screens: {

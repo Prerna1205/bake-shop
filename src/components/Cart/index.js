@@ -5,7 +5,10 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import MetaData from "../Common/MetaData";
 import CartItem from "./CartItem";
+import SaveForLaterItem from './SaveForLaterItem';
+
 const Cart = () => {
+  const { saveForLaterItems } = useSelector((state) => state.saveForLater);
   const { items } = useSelector((state) => state.cart);
   const placeOrderHandler = () => {
     history.push("/shipping");
@@ -30,7 +33,7 @@ const Cart = () => {
                                 <EmptyCart />
                             )} */}
 
-              {items && items.map((item) => <CartItem dish={item} />)}
+              {items && items.map((item) => <CartItem dish={item} key={item._id} />)}
 
               {/* <!-- place order btn --> */}
               <div className="flex justify-end ">
@@ -51,13 +54,13 @@ const Cart = () => {
             {/* <!-- cart items container --> */}
 
             {/* <!-- saved for later items container --> */}
-            {/* <div className="flex flex-col mt-5 shadow bg-white">
+             <div className="flex flex-col mt-5 shadow bg-white">
                             <span className="font-medium text-lg px-2 sm:px-8 py-4 border-b">Saved For Later ({saveForLaterItems.length})</span>
                             {saveForLaterItems && saveForLaterItems.map((item) => (
                                 <SaveForLaterItem {...item} />
                             )
                             )}
-                        </div> */}
+                        </div> 
             {/* <!-- saved for later container --> */}
           </div>
           {/* <!-- cart column --> */}

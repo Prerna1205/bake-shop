@@ -10,7 +10,8 @@ const initialState = {
   error: null,
   token:sessionStorage.getItem("token")
   ? JSON.parse(sessionStorage.getItem("token"))
-  : null,
+  : null
+  
 };
 export const login = createAsyncThunk(
   "login",
@@ -25,22 +26,35 @@ export const login = createAsyncThunk(
       },
       method: "post",
       body: JSON.stringify(data),
+    }).catch((error)=>
+    {
+      return thunkAPI.rejectWithValue('No Resonse from Server!');
     });
+
     try {
+    if(response.status){
       if (response.status === 200) {
         const response1 = await response.json();
-
         return response1;
+      }else{
+      return thunkAPI.rejectWithValue("Invalid Credentials");
       }
-      return thunkAPI.rejectWithValue("Error in Login");
+    }
+    else{
+      return thunkAPI.rejectWithValue('No Resonse from Server!');
+    }
     } catch (error) {
-      return thunkAPI.rejectWithValue("API Error!");
+      return thunkAPI.rejectWithValue("No Response from Server!");
     }
   }
 );
 export const logout = () => (dispatch) => {
   dispatch({ type: "LOGOUT" });
 }
+
+export const clearErrors = () => async (dispatch) => {
+  dispatch({ type: "CLEAR_ERRORS" });
+};
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -48,30 +62,25 @@ const authSlice = createSlice({
     builder
       .addCase(login.pending, (state) => {
         state.loading = true;
-        state.user = {};
+        state.user = null;
         state.error = null;
-        sessionStorage.setItem("user", {});
-        sessionStorage.setItem("token", null);
+        sessionStorage.clear();
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action?.payload.user;
         state.error = null;
-        state.token=action?.payload.token
+        state.token=action?.payload.token;
         sessionStorage.setItem("user", JSON.stringify(action?.payload.user));
         sessionStorage.setItem("token", JSON.stringify(action?.payload.token));
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        state.user = {};
+        state.user = null;
         state.error = action?.payload;
-        sessionStorage.setItem("user", {});
-        sessionStorage.setItem("token", null);
+        sessionStorage.clear();
       })
-      // .addCase(logout.pending, (state) => {
-      //   state.loading = true;
-      //   state.error = null;
-      // })
+     
       .addCase('LOGOUT', (state, action) => {
         state.loading = false;
         state.user = null;
@@ -79,11 +88,12 @@ const authSlice = createSlice({
         state.token=null;
         sessionStorage.clear();
       })
-      // .addCase(logout.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.error = action?.payload;
-       
-      // });
+      .addCase('CLEAR_ERRORS', (state, action) => {
+        state.loading = false;
+        state.error = null;
+        sessionStorage.clear();
+      })
+     
   },
 });
 export default authSlice.reducer;

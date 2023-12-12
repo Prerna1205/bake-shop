@@ -10,8 +10,8 @@ const storeNew = configureStore({
   reducer,
   middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware().concat(catalogApi.middleware);
-     },
-
+     }
+    
 },
   );
   export default storeNew;

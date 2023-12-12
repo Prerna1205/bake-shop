@@ -3,8 +3,8 @@ import { REMOVE_FROM_SAVE_FOR_LATER, SAVE_FOR_LATER } from "../constants/saveFor
 // Save For Later
 export const saveForLater = (id) => async (dispatch, getState) => {
 
-    const cartItemsArr = getState().cart.cartItems;
-    const product = cartItemsArr.find((i) => i.product === id)
+    const cartItemsArr = getState().cart.items;
+    const product = cartItemsArr.find((i) => i._id === id)
 
     dispatch({
         type: SAVE_FOR_LATER,

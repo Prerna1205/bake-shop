@@ -9,6 +9,14 @@
   width: 100vw;
   height: 80vh;
 }
+.btn-primary
+{
+  background-color: orangered;
+}
+.error_login {
+  display: block;
+  color: red;
+}
 .Auth-container {
   display: flex;
   flex-wrap: wrap;

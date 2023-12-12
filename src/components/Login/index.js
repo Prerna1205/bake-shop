@@ -1,37 +1,64 @@
-import React, { useState, useContext, useEffect, createRef } from "react";
-import useAuthentication from "../../service/useAuthentication";
+import React, { useEffect, createRef,useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import {login as loginAuth}  from "../../redux/authSlice";
 import { useDispatch,useSelector } from "react-redux";
 import "./index.css";
-//import { login } from "../../service";
-
 const Login = () => {
   const name = createRef();
   const pass = createRef();
   const dispatch=useDispatch();
-  const { loginData } = useSelector((state) => ({
-    loginData: state?.auth?.loginData,
-  }));
   const history = useHistory();
   const location = useLocation();
-  const { user, error } = useSelector((state) => state.auth);
-
+  const { user, error,loading } = useSelector((state) => state.auth);
   const { from } = (location && location.state) || {
     from: { pathname: "/" },
   };
   useEffect(() => {
-    console.log(user);
+   if(!loading)
+   {
     user && history.replace(from);
-  }, [user, from, history]);
+   }
+  }, [user, from, history,loading]);
 
-
+  const [errorsEmail, setErrorsEmail] = useState({});
+  const [errorsPass, setErrorsPass] = useState({});
+   const handleChange = () => {
+   
+     const email = name.current.value;
+     const password = pass.current.value;
+  
+     let regEmail =
+       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    
+     if (!email) {
+       setErrorsEmail({  email: "Field can not be empty!" });
+     } else  {
+     if(!regEmail.test(email)) {
+     
+       setErrorsEmail({  email: "Invalid Email" });
+     }else{
+     setErrorsEmail({  email: "" });
+     }
+     }
+    
+     const passwordRegex = /(?=.*[0-9])/;
+     if (!password) {
+       setErrorsPass({  password: "Field can not be empty!" });
+     } else if (password.length < 8) {
+       setErrorsPass({  password: "Password must be 8 characters long." });
+      
+     } else if (!passwordRegex.test(password)) {
+       setErrorsPass({  password: "Invalid password. Must contain one number." });     
+     }
+ else{
+       setErrorsPass({  password: "" });
+     }
+   
+   };
   const loginUser = async() => {
     const email = name.current.value;
     const password = pass.current.value;
-    const response=await dispatch(loginAuth({email:email, password:password}));
-    
-    
+    dispatch(loginAuth({email:email, password:password}));
   };
   return (
     <div className="Auth-form-container">
@@ -54,7 +81,9 @@ const Login = () => {
                 className="form-control mt-1"
                 placeholder="Enter email"
                 ref={name}
+                onChange={handleChange}
               />
+              {errorsEmail ? <div className="error_login">{errorsEmail.email}</div> : ""}
             </div>
             <div className="form-group mt-3">
               <label>Password</label>
@@ -63,7 +92,13 @@ const Login = () => {
                 className="form-control mt-1"
                 placeholder="Enter password"
                 ref={pass}
+                onChange={handleChange}
               />
+               {errorsPass ? (
+                <div className="error_login">{errorsPass.password}</div>
+              ) : (
+                ""
+              )}
             </div>
             <div className="d-grid gap-2 mt-3">
               <button
@@ -77,9 +112,14 @@ const Login = () => {
             <p className="forgot-password text-right mt-2">
               Forgot <a href="#">password?</a>
             </p>
+            {error? (
+                <div className="error_login">{error}</div>
+              ) : (
+                ""
+              )}
           </div>
         </form>
-        { error ? "Error in login!" + error : null }
+       
       </div>
     </div>
   );

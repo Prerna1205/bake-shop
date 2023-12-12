@@ -19,11 +19,18 @@ import Shipping from "./components/Cart/Shipping";
 import OrderConfirm from "./components/Cart/OrderConfirm";
 import Payment from "./components/Cart/Payment";
 import OrderSuccess from "./components/Cart/OrderSuccess";
-
+import Dashboard from './components/Admin/Dashboard';
+import MainData from './components/Admin/MainData';
+// import OrderTable from './components/Admin/OrderTable';
+// import UpdateOrder from './components/Admin/UpdateOrder';
+import ProductTable from './components/Admin/ProductTable';
+import NewProduct from './components/Admin/NewProduct';
+// import UpdateProduct from './components/Admin/UpdateProduct';
+import Footer from "./components/Footer/Footer.jsx";
 const App = () => {
   // const { AuthCtx } = useAuthentication();
   // const { user, logOut } = useContext(AuthCtx);
-  const { user, token } = useSelector((state) => state.auth);
+  const { user, token,isAdmin } = useSelector((state) => state.auth);
   return (
     <div>
       <BrowserRouter>
@@ -85,9 +92,48 @@ const App = () => {
             <Protected user={user} path="/order_details/:id">
               <OrderDetails />
             </Protected>
+
+            
+          <Protected  isAdmin={true} user={user} path="/admin/Dashboard">
+            <Dashboard activeTab={0}>
+               <MainData /> 
+            </Dashboard>
+          </Protected> 
+          
+          {/* <Protected isAdmin={true} path="/admin/orders">
+            <Dashboard activeTab={1}>
+              <OrderTable />
+            </Dashboard>
+          </Protected>
+    
+
+     
+          <Protected isAdmin={true}  path="/admin/order/:id">
+            <Dashboard activeTab={1}>
+              <UpdateOrder />
+            </Dashboard>
+          </Protected> */}
+      
+
+       
+          <Protected  isAdmin={true} user={user} path="/admin/products">
+            <Dashboard activeTab={2}>
+              <ProductTable />
+            </Dashboard>
+          </Protected>
+       
+       
+          <Protected isAdmin={true} user={user} path="/admin/new_product">
+            <Dashboard activeTab={3}>
+              <NewProduct />
+            </Dashboard>
+          </Protected>
+      
           </div>
         </Switch>
+        <Footer/>
       </BrowserRouter>
+     
     </div>
   );
 };

@@ -9,14 +9,14 @@ const PriceSidebar = ({ cartItems }) => {
 
                 <div className="flex flex-col gap-4 p-6 pb-3">
                     <p className="flex justify-between">Price ({cartItems.length} item) <span>₹{cartItems.reduce((sum, item) => sum + (item.price* item.quantity), 0).toLocaleString()}</span></p>
-                    <p className="flex justify-between">Discount <span className="text-primary-green">- ₹{cartItems.reduce((sum, item) => sum + ((item.cuttedPrice * item.quantity) - (item.price * item.quantity)), 0).toLocaleString()}</span></p>
-                    <p className="flex justify-between">Delivery Charges <span className="text-primary-green">FREE</span></p>
+                    <p className="flex justify-between">Discount <span className="text-primary-green">- ₹{cartItems.reduce((sum, item) => sum + ((item.price * item.quantity) - (item.cuttedPrice * item.quantity)), 0).toLocaleString()}</span></p>
+                     <p className="flex justify-between">Delivery Charges <span className="text-primary-green">FREE</span></p>
 
                     <div className="border border-dashed"></div>
-                    <p className="flex justify-between text-lg font-medium">Total Amount <span>₹{cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}</span></p>
+                    <p className="flex justify-between text-lg font-medium">Total Amount <span>₹{cartItems.reduce((sum, item) => sum + (item.cuttedPrice * item.quantity), 0).toLocaleString()}</span></p>
                     <div className="border border-dashed"></div>
 
-                    <p className="font-medium text-primary-green">You will save ₹{cartItems.reduce((sum, item) => sum + ((item.cuttedPrice * item.quantity) - (item.price * item.quantity)), 0).toLocaleString()} on this order</p>
+                    <p className="font-medium text-primary-green">You will save ₹{cartItems.reduce((sum, item) => sum + ((item.price * item.quantity) - (item.cuttedPrice * item.quantity)), 0).toLocaleString()} on this order</p>
 
                 </div>
 
