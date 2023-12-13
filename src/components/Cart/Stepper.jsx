@@ -1,10 +1,6 @@
 import { useSelector } from 'react-redux';
-import { useContext } from 'react';
-//import "../../index.css";
-import Container from "react-bootstrap/Container";
 import CheckIcon from '@mui/icons-material/Check';
-import Col from 'react-bootstrap/Col';
-import useAuthentication from '../../service/useAuthentication';
+
 const Stepper = ({ activeStep, children }) => {
     const {user}=useSelector((state) => state.auth);
     const { shippingInfo, items } = useSelector((state) => state.cart);

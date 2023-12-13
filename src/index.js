@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import useAuthentication from "./service/useAuthentication";
+
 import "./css/style.css";
 import  storeNew  from "./redux/store";
 import { Provider } from "react-redux";
 import { SnackbarProvider } from "notistack";
 import ErrorBoundary from "./components/ErrorBoundary";
 function ConnectedApp() {
-  const { AuthProvider } = useAuthentication();
+  
   return (
     
     <Provider store={storeNew}>
@@ -19,11 +19,11 @@ function ConnectedApp() {
           horizontal: 'center',
         }}
       ></SnackbarProvider>
-      <AuthProvider>
+     
       <ErrorBoundary>
         <App />
         </ErrorBoundary>
-      </AuthProvider>
+     
       <SnackbarProvider/>
     </Provider>
 

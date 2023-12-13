@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect, createRef } from "react";
-import useAuthentication from "../../service/useAuthentication";
 import { signUp as signUpApi } from "../../redux/signUpSlice";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
