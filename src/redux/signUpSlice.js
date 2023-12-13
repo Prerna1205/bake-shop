@@ -1,4 +1,6 @@
 import {createAsyncThunk,createSlice} from '@reduxjs/toolkit';
+import env from 'react-dotenv';
+const apiBaseUrl=env.REACT_APP_API_URL;
 const initialState = {
     loading: false,
     signUpData: '',
@@ -7,7 +9,7 @@ const initialState = {
   export const signUp = createAsyncThunk(
     'signUp',
     async (data,thunkAPI) => {
-        const response = await fetch("http://localhost:3000/api/signup", {
+        const response = await fetch(`${apiBaseUrl}/api/signup`, {
             mode: "cors",
             headers: {
               Accept: "application/json",
@@ -16,17 +18,23 @@ const initialState = {
             },
             method: "post",
             body: JSON.stringify(data),
+          }).catch((error)=>
+          {
+            return thunkAPI.rejectWithValue('No Resonse from Server!');
           });
-        try{  
-          if(response.status === 200){
-          
-            const response1=await response.json();
-           
-            return response1;
-
+          try {
+            if(response.status){
+              if (response.status === 200) {
+                const response1 = await response.json();
+                return response1;
+              }else{
+              return thunkAPI.rejectWithValue("Error in Signup!Please try agian.");
+              }
             }
-            return thunkAPI.rejectWithValue("Error in signup!");
-        }
+            else{
+              return thunkAPI.rejectWithValue('No Resonse from Server!');
+            }
+            }
           catch(error)
           {
             return thunkAPI.rejectWithValue('No Resonse from API!');
