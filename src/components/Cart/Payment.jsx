@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import PriceSidebar from "./PriceSidebar";
+import env from 'react-dotenv';
+
 import Stepper from "./Stepper";
 // import {
 //     CardNumberElement,
@@ -23,6 +25,7 @@ import MetaData from "../Common/MetaData";
 const Payment = () => {
   const navigate = useHistory();
   const dispatch = useDispatch();
+  const apiBaseUrl=env.REACT_APP_API_URL;
   // const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   // const stripe = useStripe();
@@ -66,7 +69,7 @@ const Payment = () => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:3000/api/payment/process",
+        `${apiBaseUrl}/api/payment/process`,
         paymentData,
         config
       );
